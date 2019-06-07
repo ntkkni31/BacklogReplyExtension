@@ -1,0 +1,30 @@
+{
+    "name": "Backlog Reply Extension",
+    "version": "1.0.1",
+    "manifest_version": 2,
+    "description": "add reply comments.",
+    "content_security_policy": "script-src 'self'; object-src 'self'",
+    "permissions": [
+        "storage"
+    ],
+    "icons": {
+        "16" : "images/icon_16.png",
+        "48" : "images/icon_48.png",
+        "128": "images/icon_128.png"
+    },
+    "content_scripts": [{
+        "matches": ["*://*.backlog.jp/*"],
+        "js": [
+            "scripts/jquery.min.js",
+            "scripts/tooltipster.bundle.min.js",
+            "scripts/fixedphrase.js",
+            "scripts/reply_extension.js"
+        ],
+        "css": ["css/style.css"]
+    }],
+    "page_action":{
+        "default_icon": "images/icon_16.png",
+        "default_title": "Backlog Reply Extension"
+    },
+    "options_page": "options.html"
+}
