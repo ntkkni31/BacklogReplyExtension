@@ -31,7 +31,7 @@
         var currentUrl = document.URL.split("#")[0];
         var replyCommentRegex = new RegExp("^" + escapeRegExp(currentUrl + "#comment-" ) + "\\d+$");
         var result = ISSUE_URL.exec(currentUrl);
-        if(result.length < 2) return;
+        if(!result || result.length < 2) return;
 
         var issueKey = result[1];
 
@@ -121,10 +121,19 @@
 })(window);
 
 $(document).on('click', 'button.reply_button', function() {
+
+    var commentDiv = $(this).closest('div.comment-item');
+    var commentId = commentDiv.attr('id');
+    var commentCreateUser = commentDiv.find('.user-icon-set__name').first().text();
+
+    //$('#notifiedUsersLeft .select2-container input.select2-input').first().click();
+    
+    // $('ul.select2-results[aria-labelledby="notifiedUsersLabel"] li:not(.select2-selected) .select2-icon-text').filter(function(i){
+    //     return this.innerText == commentCreateUser; 
+    // }).closest('li').mouseup();
+
     $('#leftCommentContent').focus();
-
-    var commentId = $(this).closest('div.comment-item').attr('id');
-
     var txt = $('#leftCommentContent').val();
     $('#leftCommentContent').val(txt + "Re: " + document.URL.split("#")[0] + "#" + commentId + "\n");
+
 });

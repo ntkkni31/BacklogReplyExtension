@@ -14,8 +14,13 @@ const observer = new MutationObserver(function(mutations) {
           var fixedPhrase = fixedPhraseMap[username];
           
           if(fixedPhrase) {
-            var txt = $('#leftCommentContent').val();
-            $('#leftCommentContent').val(txt + fixedPhrase);
+            var textArea = document.getElementById('leftCommentContent');
+            var p = textArea.selectionStart;
+            textArea.value = textArea.value.substr(0, p) + fixedPhrase + textArea.value.substr(p);
+          
+            textArea.focus();
+            var caretPos = p + fixedPhrase.indexOf("]") + 1; // 最初の閉じカッコの次にキャレットを移動
+            textArea.setSelectionRange(caretPos, caretPos);
           }
         }
       }
