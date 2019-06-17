@@ -121,16 +121,39 @@
 })(window);
 
 $(document).on('click', 'button.reply_button', function() {
-
+    $('#leftCommentContent').focus();
     var commentDiv = $(this).closest('div.comment-item');
     var commentId = commentDiv.attr('id');
     var commentCreateUser = commentDiv.find('.user-icon-set__name').first().text();
+    var commentCreateUserImgSrc = commentDiv.find('.user-icon-set__user-icon img').first().attr('src');
 
-    //$('#notifiedUsersLeft .select2-container input.select2-input').first().click();
+    // var tag = $('#notifiedUsersLeft .select2-container ul.select2-choice li.select2-search-choice .select2-icon-text').find(() => {
+    //     return this.innerText == commentCreateUser;
+    // });
+
+    // if(tag.length == 0) {
+    //     var newTag = $('<li class="select2-search-choice"></li>').append(
+    //         $('<div>')
+    //             .append($('<img class="select2-icon">').attr('src', commentCreateUserImgSrc))
+    //             .append($('<span class="select2-icon-text">').text(commentCreateUser))
+    //     ).append(
+    //         $('<a href="#" class="select2-search-choice-close" tabindex="-1">')
+    //     );
+
+    //     $('#notifiedUsersLeft .select2-container ul.select2-choices').prepend(newTag);
+    //     $('#notifiedUsersLeft .select2-container input.select2-input').removeClass('select2-default');
+    //     //select2-input
+    // }
+
+    // $('#notifiedUsersLeft .select2-container input.select2-input').first().click();
     
-    // $('ul.select2-results[aria-labelledby="notifiedUsersLabel"] li:not(.select2-selected) .select2-icon-text').filter(function(i){
-    //     return this.innerText == commentCreateUser; 
-    // }).closest('li').mouseup();
+    // $('ul.select2-results[aria-labelledby="notifiedUsersLabel"] li:not(.select2-selected) .select2-icon-text').each(function(i){
+    //     if(this.innerText == commentCreateUser) {
+    //         $(this).closest('li').addClass('select2-highlighted');
+    //     } else {
+    //         $(this).closest('li').removeClass('select2-highlighted');
+    //     }
+    // });
 
     $('#leftCommentContent').focus();
     var txt = $('#leftCommentContent').val();

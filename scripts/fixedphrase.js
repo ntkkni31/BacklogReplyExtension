@@ -35,9 +35,9 @@ var setIntervalId = null;
 // 要素が生成されるまで待ってから、イベントの追加を行う
 function findTargetElement() {
  if(setIntervalId) {
-   if(document.getElementById('s2id_autogen3')) {
+   if(document.getElementById('notifiedUsersLeft')) {
      try {
-       const target = document.getElementById('s2id_autogen3').querySelector('ul.select2-choices');
+       const target = document.getElementById('notifiedUsersLeft').querySelector('ul.select2-choices');
        observer.observe(target, {childList: true});
        clearInterval(setIntervalId);
      } catch (e) {

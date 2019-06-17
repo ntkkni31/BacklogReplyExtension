@@ -1,6 +1,6 @@
 {
     "name": "Backlog Reply Extension",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "manifest_version": 2,
     "description": "add reply comments.",
     "content_security_policy": "script-src 'self'; object-src 'self'",
@@ -20,7 +20,8 @@
             "scripts/fixedphrase.js",
             "scripts/reply_extension.js"
         ],
-        "css": ["css/style.css"]
+        "css": ["css/style.css"],
+        "all_frames": true
     }],
     "page_action":{
         "default_icon": "images/icon_16.png",
