@@ -1,6 +1,6 @@
+var ISSUE_URL = /[/]view[/]([A-Z_0-9]+[-][0-9]+)([#]comment-([0-9]+))?/;
 
 (function(w)  {
-    var ISSUE_URL = /[/]view[/]([A-Z_0-9]+[-][0-9]+)([#]comment-([0-9]+))?/;
     var currentTooltip;
     var repositioned = false;
 
@@ -86,7 +86,7 @@
                         var iconId = commentId + "_to_" + replyCommentId;
 
                         if(target.find('div[id="' + iconId + '"]').length == 0) {
-                            var replyIconDiv = $('<div class="comment-reply"></div>').attr('id', iconId);
+                            var replyIconDiv = $('<div class="comment-reply"></div>').attr('id', iconId).attr('data-ref', commentId);
                             var a = $('<a rel="noopener noreferrer" class="loom-link-another tooltipstered backlog-card-checked"></a>');
                             a.attr('href', currentUrl + "#" + commentId);
 
@@ -119,6 +119,50 @@
 
     replyExtentionObserver.observe(replyExtentionTarget, {childList: true, subtree: true});
 })(window);
+
+$(document).on('mouseover', 'div.comment-reply', function() {
+    var replyCommentId = $(this).attr('data-ref');
+    $('div.comment-item[id="' + replyCommentId + '"]').addClass('comment-reply-highlight');
+});
+
+$(document).on('mouseout', 'div.comment-reply', function() {
+    var replyCommentId = $(this).attr('data-ref');
+    $('div.comment-item[id="' + replyCommentId + '"]').removeClass('comment-reply-highlight');
+});
+
+$(document).on('mouseover', 'div.comment-item div.comment-item__container a', function() {
+    var commentUrl = $(this).attr('href');
+
+    var result1 = ISSUE_URL.exec(document.URL);
+    if(!result1 || result1.length < 2) return;
+
+    var result2 = ISSUE_URL.exec(commentUrl);
+    if(!result2 || result2.length < 3) return;
+
+    var issueKey = result2[1];
+    if (issueKey != result1[1]) return;
+
+    var replyCommentId = result2[2].replace('#', '');
+
+    $('div.comment-item[id="' + replyCommentId + '"]').addClass('comment-reply-highlight');
+});
+
+$(document).on('mouseout', 'div.comment-item div.comment-item__container a', function() {
+    var commentUrl = $(this).attr('href');
+
+    var result1 = ISSUE_URL.exec(document.URL);
+    if(!result1 || result1.length < 2) return;
+
+    var result2 = ISSUE_URL.exec(commentUrl);
+    if(!result2 || result2.length < 3) return;
+
+    var issueKey = result2[1];
+    if (issueKey != result1[1]) return;
+
+    var replyCommentId = result2[2].replace('#', '');
+
+    $('div.comment-item[id="' + replyCommentId + '"]').removeClass('comment-reply-highlight');
+});
 
 $(document).on('click', 'button.reply_button', function() {
     $('#leftCommentContent').focus();

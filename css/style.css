@@ -20,6 +20,10 @@ div.comment-item.is_collapsed .comment-replies-container {
   display: none;
 }
 
+div.comment-item.comment-reply-highlight {
+  background-color: #f7ebef;
+}
+
 .comment-replies-container {
   text-align: right;
 }
