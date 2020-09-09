@@ -1,3 +1,6 @@
+// TODO 通知ユーザー選択のドロップダウンはこんなかんじのタグなので、これを選択時に定型文を入れれるようにする
+// <ul class="at-mention-list comment-editor__emoticon-support-panel"
+
 var fixedPhraseMap = {};
 
 var itemCount = 0;
