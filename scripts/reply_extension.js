@@ -168,39 +168,21 @@ $(document).on('click', 'button.reply_button', function() {
     $('#leftCommentContent').focus();
     var commentDiv = $(this).closest('div.comment-item');
     var commentId = commentDiv.attr('id');
-    var commentCreateUser = commentDiv.find('.user-icon-set__name').first().text();
-    var commentCreateUserImgSrc = commentDiv.find('.user-icon-set__user-icon img').first().attr('src');
 
-    // var tag = $('#notifiedUsersLeft .select2-container ul.select2-choice li.select2-search-choice .select2-icon-text').find(() => {
-    //     return this.innerText == commentCreateUser;
-    // });
+    var replayIntroduction = "Re: " + document.URL.split("#")[0] + "#" + commentId + "\n";
 
-    // if(tag.length == 0) {
-    //     var newTag = $('<li class="select2-search-choice"></li>').append(
-    //         $('<div>')
-    //             .append($('<img class="select2-icon">').attr('src', commentCreateUserImgSrc))
-    //             .append($('<span class="select2-icon-text">').text(commentCreateUser))
-    //     ).append(
-    //         $('<a href="#" class="select2-search-choice-close" tabindex="-1">')
-    //     );
-
-    //     $('#notifiedUsersLeft .select2-container ul.select2-choices').prepend(newTag);
-    //     $('#notifiedUsersLeft .select2-container input.select2-input').removeClass('select2-default');
-    //     //select2-input
-    // }
-
-    // $('#notifiedUsersLeft .select2-container input.select2-input').first().click();
-    
-    // $('ul.select2-results[aria-labelledby="notifiedUsersLabel"] li:not(.select2-selected) .select2-icon-text').each(function(i){
-    //     if(this.innerText == commentCreateUser) {
-    //         $(this).closest('li').addClass('select2-highlighted');
-    //     } else {
-    //         $(this).closest('li').removeClass('select2-highlighted');
-    //     }
-    // });
+    // ユーザーのアイコンに<a href="/user/kanai"... みたいに入っているので、ここからユーザーIDを無理矢理切り出す
+    var userHref = commentDiv.find('.comment-item__header .user-icon-set a.comment-item__user-icon').first().attr('href');
+    var userId;
+    if(userHref){
+        userId = userHref.replace(/^\/user\//g, '');
+        if(userId && userHref != userId) {
+            replayIntroduction += '@' + userId + '\n';
+        }
+    }
 
     $('#leftCommentContent').focus();
     var txt = $('#leftCommentContent').val();
-    $('#leftCommentContent').val(txt + "Re: " + document.URL.split("#")[0] + "#" + commentId + "\n");
+    $('#leftCommentContent').val(txt + replayIntroduction);
 
 });
